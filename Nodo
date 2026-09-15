@@ -1,0 +1,12 @@
+package modelo;
+
+public class Nodo<Item> {
+
+    Item elemento;
+    Nodo<Item> siguiente;
+
+    public Nodo(Item elemento) {
+        this.elemento = elemento;
+        this.siguiente = null;
+    }
+}
