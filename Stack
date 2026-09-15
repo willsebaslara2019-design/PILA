@@ -1,0 +1,104 @@
+package modelo;
+
+public class Stack<Item> implements Iterable<Item> {
+
+    private Nodo<Item> primero;
+    private int cantidad;
+
+    public Stack() {
+        primero = null;
+        cantidad = 0;
+    }
+
+    public void push(Item item) {
+
+        Nodo<Item> nuevo = new Nodo<>(item);
+
+        nuevo.siguiente = primero;
+        primero = nuevo;
+
+        cantidad++;
+    }
+
+    public Item pop() {
+
+        if (isEmpty()) {
+            return null;
+        }
+
+        Item elemento = primero.elemento;
+
+        primero = primero.siguiente;
+        cantidad--;
+
+        return elemento;
+    }
+
+    public boolean isEmpty() {
+        return primero == null;
+    }
+
+    public int size() {
+        return cantidad;
+    }
+
+    @Override
+    public java.util.Iterator<Item> iterator() {
+
+        return new java.util.Iterator<Item>() {
+
+            private Nodo<Item> actual = primero;
+
+            @Override
+            public boolean hasNext() {
+                return actual != null;
+            }
+
+            @Override
+            public Item next() {
+
+                Item elemento = actual.elemento;
+                actual = actual.siguiente;
+
+                return elemento;
+            }
+        };
+    }
+}
+3. InterfazApp.java
+package interfaz;
+
+import modelo.Stack;
+
+public class InterfazApp {
+
+    public static void main(String[] args) {
+
+        Stack<Integer> pila = new Stack<>();
+
+        System.out.println("¿Está vacía? " + pila.isEmpty());
+
+        pila.push(10);
+        pila.push(20);
+        pila.push(30);
+        pila.push(40);
+
+        System.out.println("Tamaño: " + pila.size());
+
+        System.out.println("Contenido de la pila:");
+
+        for (Integer numero : pila) {
+            System.out.println(numero);
+        }
+
+        System.out.println("Elemento eliminado: " + pila.pop());
+
+        System.out.println("Nuevo tamaño: " + pila.size());
+
+        System.out.println("Contenido de la pila:");
+
+        for (Integer numero : pila) {
+            System.out.println(numero);
+        }
+    }
+}
